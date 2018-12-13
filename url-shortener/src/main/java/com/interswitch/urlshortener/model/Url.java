@@ -5,6 +5,16 @@ public class Url {
 
     private String shortUrlValue;
 
+    private String ID;
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
     private String longUrlValue;
 
     public String getShortUrlValue() {

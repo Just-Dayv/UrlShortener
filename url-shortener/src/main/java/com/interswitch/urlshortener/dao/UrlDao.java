@@ -20,6 +20,7 @@ import java.util.Map;
 @Repository
 public class UrlDao {
 
+
     private final String SINGLE_RESULT = "object";
     private SimpleJdbcCall create,getUrlByLong, getUrlByShort;
 
@@ -45,13 +46,16 @@ public class UrlDao {
     }
 
     public Url findByShortUrl (String shortUrlValue) {
+        System.out.println(shortUrlValue);
         SqlParameterSource in = new MapSqlParameterSource().addValue("ShortUrlValue", shortUrlValue);
         Map<String, Object> m = getUrlByShort.execute(in);
         List<Url> list = (List<Url>) m.get(SINGLE_RESULT);
         if (list == null || list.isEmpty()) {
             return null;
         }
+        System.out.println(list.get(0).getShortUrlValue());
         return list.get(0);
+
     }
 
     public Url create(Url model) throws DataAccessException {

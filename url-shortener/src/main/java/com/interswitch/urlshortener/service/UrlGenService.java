@@ -38,6 +38,7 @@ public class UrlGenService {
                 url.setShortUrlValue(shortUrlValue);
                 return urlDao.create(url);
             }
+                System.out.println(urlDao.findByLongUrl(longUrlValue));
             throw new RequestRejectedException("url already created");
         }
         else
@@ -47,7 +48,8 @@ public class UrlGenService {
 
     public Url getOriginalUrl (String shortUrlValue)
     {
-        if ((urlDao.findByShortUrl(shortUrlValue)) == null) {
+        System.out.println(shortUrlValue);
+        if ((urlDao.findByShortUrl(shortUrlValue)).getLongUrlValue()== null) {
             throw new RequestRejectedException("url doesn't exist in record ");
         }
 

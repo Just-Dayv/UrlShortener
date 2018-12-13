@@ -13,7 +13,7 @@ CREATE PROCEDURE [dbo].[checkIfExistsByLongUrl](
   @longUrlValue varchar(MAX )
 )
 AS
-SELECT ID FROM UrlShortener WHERE LongUrlValue= @longUrlValue
+SELECT * FROM UrlShortener WHERE LongUrlValue= @longUrlValue
 GO
 
 
@@ -21,7 +21,7 @@ CREATE PROCEDURE [dbo].[checkIfExistsByShortUrl](
   @shortUrlValue varchar(50)
 )
 AS
-SELECT ID FROM UrlShortener WHERE ShortUrlValue = @shortUrlValue
+SELECT * FROM UrlShortener WHERE ShortUrlValue = @shortUrlValue
 GO
 
 
