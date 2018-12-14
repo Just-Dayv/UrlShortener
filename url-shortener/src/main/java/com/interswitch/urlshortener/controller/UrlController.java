@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/")
 public class UrlController {
     private final UrlGenService urlGenService;
 
@@ -23,16 +23,16 @@ public class UrlController {
         this.urlGenService = urlGenService;
     }
 
-    @PostMapping("/shortener")
+    @PostMapping("shortener")
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
     public Response response (@RequestBody @Validated String longUrl, HttpServletRequest request){
 
-        Url  urlCreated = urlGenService.createUrl(longUrl);
-        return new UrlResponse("200","SUCCESSFUL",null,urlCreated.getShortUrlValue());
+        Url  urlCreated = urlGenService.createUrl(longUrl,request);
+        return new UrlResponse("200","SUCCESSFUL",null,  request.getRequestURL().toString().replace(request.getRequestURI(),"/"+urlCreated.getShortUrlValue()));
     }
 
-    @GetMapping("/{returnLongValue}")
+    @GetMapping("{returnLongValue}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity value (@PathVariable String returnLongValue)
     {

@@ -1,6 +1,8 @@
 package com.interswitch.urlshortener.dao;
 
 import com.interswitch.urlshortener.model.Url;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessException;
@@ -21,12 +23,15 @@ import java.util.Map;
 public class UrlDao {
 
 
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     private final String SINGLE_RESULT = "object";
     private SimpleJdbcCall create,getUrlByLong, getUrlByShort;
 
 
     @Autowired
     public void setDataSource(@Qualifier(value = "dataSource") DataSource dataSource) {
+        logger.info("provided data source using hikari configuration");
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
          create = new SimpleJdbcCall(dataSource).withProcedureName("uspCreateUrlShortener").withReturnValue();
          getUrlByLong = new SimpleJdbcCall(jdbcTemplate).withProcedureName("checkIfExistsByLongUrl")
